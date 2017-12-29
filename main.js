@@ -32,6 +32,23 @@ class Blockchain {
     newBlock.hash = newBlock.calculateHash();
     this.chain.push(newBlock);
   }
+
+  isChainValid() {
+    for(let i = 1; i < this.chain.length; i++) {
+      const currentBlock  = this.chain[i];
+      const previousBlock = this.chain[i - 1];
+
+      if(currentBlock.hash !== currentBlock.calculateHash()) {
+        return false;
+      }
+
+      if(currentBlock.previousHash !== previousBlock.hash) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
 
 let dmitryBlockchain = new Blockchain()
@@ -39,6 +56,6 @@ dmitryBlockchain.addBlock(new Block(1, "12/27/2017", {coinAmount : 3.50}))
 dmitryBlockchain.addBlock(new Block(2, "12/28/2017", {coinAmount : 1.50}))
 
 console.log(JSON.stringify(dmitryBlockchain, null, 4))
+console.log("isChainValid = ", dmitryBlockchain.isChainValid())
 
-module.exports = Block
-module.exports = Blockchain
+module.exports = {Block, Blockchain}
