@@ -20,7 +20,7 @@ class Blockchain {
   }
 
   createGenesisBlock() {
-    return new Block(0, "12/28/2017", "Genesis block", "randomData");
+    return new Block(0, "12/26/2017", "Genesis block", "randomData");
   }
 
   getLatestBlock() {
@@ -33,6 +33,12 @@ class Blockchain {
     this.chain.push(newBlock);
   }
 }
+
+let dmitryBlockchain = new Blockchain()
+dmitryBlockchain.addBlock(new Block(1, "12/27/2017", {coinAmount : 3.50}))
+dmitryBlockchain.addBlock(new Block(2, "12/28/2017", {coinAmount : 1.50}))
+
+console.log(JSON.stringify(dmitryBlockchain, null, 4))
 
 module.exports = Block
 module.exports = Blockchain
