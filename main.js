@@ -22,4 +22,17 @@ class Blockchain {
   createGenesisBlock() {
     return new Block(0, "12/28/2017", "Genesis block", "randomData");
   }
+
+  getLatestBlock() {
+    return this.chain[this.chain.length - 1];
+  }
+
+  addBlock(newBlock) {
+    newBlock.previousHash = this.getLatestBlock().hash;
+    newBlock.hash = newBlock.calculateHash();
+    this.chain.push(newBlock);
+  }
 }
+
+module.exports = Block
+module.exports = Blockchain
