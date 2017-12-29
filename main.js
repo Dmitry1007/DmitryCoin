@@ -10,7 +10,7 @@ class Block {
   }
 
   calculateHash() {
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.date)).toString()
+    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString()
   }
 }
 
@@ -51,11 +51,15 @@ class Blockchain {
   }
 }
 
-let dmitryBlockchain = new Blockchain()
-dmitryBlockchain.addBlock(new Block(1, "12/27/2017", {coinAmount : 3.50}))
-dmitryBlockchain.addBlock(new Block(2, "12/28/2017", {coinAmount : 1.50}))
+let dmitryBlockchain = new Blockchain();
+dmitryBlockchain.addBlock(new Block(1, "12/27/2017", {coinAmount : 3.50}));
+dmitryBlockchain.addBlock(new Block(2, "12/28/2017", {coinAmount : 1.50}));
 
-console.log(JSON.stringify(dmitryBlockchain, null, 4))
-console.log("isChainValid = ", dmitryBlockchain.isChainValid())
+console.log("isChainValid = " + dmitryBlockchain.isChainValid());
 
-module.exports = {Block, Blockchain}
+// Tamper with Blockchain
+dmitryBlockchain.chain[1].data = { coinAmount : 100 };
+console.log(JSON.stringify(dmitryBlockchain, null, 4));
+console.log("isChainValid = " +  dmitryBlockchain.isChainValid());
+
+module.exports = {Block, Blockchain};
